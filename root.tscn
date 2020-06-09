@@ -1,12 +1,28 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://car/car.tscn" type="PackedScene" id=2]
+[ext_resource path="res://misc_assets/grass.png" type="Texture" id=3]
 
 [node name="root" type="Node2D"]
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 128, 128 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 793.724, 469.271 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 3200, 2000 )
+
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 371, 271 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
 
 [node name="Car" parent="." instance=ExtResource( 2 )]
 position = Vector2( 585.377, 283.117 )
