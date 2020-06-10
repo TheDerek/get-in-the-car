@@ -7,6 +7,7 @@ export var drive_zoom = 1.5
 var default_zoom = null
 var camera: Camera2D = null
 var driver: KinematicBody2D = null
+onready var road_map: TileMap = get_parent().get_node("Road")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,8 +19,15 @@ func _ready():
 #	pass
 
 func get_direction() -> Vector2:
-	var direction = Vector2(0, -1).rotated(rotation)
-	return direction.normalized();
+	var direction = Vector2(0, 0);
+	
+	if Input.is_action_pressed("up"):
+		direction.y -= 1
+	
+	if Input.is_action_pressed("down"):
+		direction.y += 0.5
+	
+	return direction.rotated(rotation)#.normalized()
 
 func get_steering() -> float:
 	var direction = 0;
@@ -51,17 +59,20 @@ func _physics_process(delta):
 	# Remove the driver from the car if they want to leave
 	if Input.is_action_just_pressed("enter_vehicle"):
 		remove_driver()
-	
-	if !Input.is_action_pressed("up"):
-		return
 		
 	var direction: Vector2 = get_direction()
+	
+	# Slow the car down if we are not on a road
+	if road_map.get_cellv(road_map.world_to_map(global_position)) == TileMap.INVALID_CELL:
+		direction *= 0.6
 
 	# Move the car in the direction it is facing
 	apply_central_impulse(direction * delta * speed)
 	
-	# Rotate the car in the direction the user is pressing
-	apply_torque_impulse(get_steering() * delta * 100000)
+	# Rotate the car in the direction the user is pressing only if the car
+	# is currently moving
+	if linear_velocity.abs().length() > 0.01:
+		apply_torque_impulse(get_steering() * delta * 50000)
 
 
 func add_driver(new_driver: KinematicBody2D):
