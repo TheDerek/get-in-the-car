@@ -33,6 +33,7 @@ rotation = 1.32886
 [node name="Car2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 2186.1, 3363.29 )
 rotation = 4.18878
+locked = true
 
 [node name="Crates" type="Node2D" parent="."]
 

@@ -3,6 +3,7 @@ extends RigidBody2D
 export var speed: float = 5000
 export var reverse_speed: float = 2000
 export var drive_zoom = 1.5
+export var locked = false
 
 var default_zoom = null
 var camera: Camera2D = null
@@ -91,7 +92,7 @@ func add_driver(new_driver: KinematicBody2D):
 
 
 func _on_DetectionArea_body_entered(body):
-	if body.has_method("add_nearby_vehicle"):
+	if body.has_method("add_nearby_vehicle") and not locked:
 		body.add_nearby_vehicle(self)
 
 func _on_DetectionArea_body_exited(body):
