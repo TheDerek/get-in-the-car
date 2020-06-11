@@ -2,8 +2,9 @@ extends RigidBody2D
 
 export var speed: float = 5000
 export var reverse_speed: float = 2000
-export var drive_zoom = 1.5
-export var locked = false
+export var drive_zoom: float = 1.5
+export var locked: float = false
+export var turning_speed: float = 7
 
 var default_zoom = null
 var camera: Camera2D = null
@@ -53,7 +54,21 @@ func remove_driver():
 	
 	self.driver = null
 
+func damp():
+	var vel = linear_velocity.rotated(-rotation)
+	
+	# General damping
+	vel *= 0.99
+	
+	# Damp the sideways velocities a lot more
+	vel.x *= 0.95
+	vel = vel.rotated(rotation)
+	linear_velocity = vel
+
 func _physics_process(delta):
+	damp()
+	
+	
 	if !self.driver:
 		return
 	
@@ -73,7 +88,7 @@ func _physics_process(delta):
 	# Rotate the car in the direction the user is pressing only if the car
 	# is currently moving
 	if linear_velocity.abs().length() > 0.01:
-		apply_torque_impulse(get_steering() * delta * 50000)
+		apply_torque_impulse(get_steering() * delta * 10000 * turning_speed)
 
 
 func add_driver(new_driver: KinematicBody2D):

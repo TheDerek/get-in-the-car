@@ -19,6 +19,11 @@ config/name="get-in-the-car"
 run/main_scene="res://root.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=2048
+window/size/height=1200
+
 [input]
 
 up={
