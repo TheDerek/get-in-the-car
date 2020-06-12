@@ -61,7 +61,11 @@ func damp():
 	vel *= 0.99
 	
 	# Damp the sideways velocities a lot more
+	var yp = abs(vel.x) - abs(vel.x * 0.95)
+	yp *= sign(vel.y) * 0.70
 	vel.x *= 0.95
+	vel.y += yp
+	
 	vel = vel.rotated(rotation)
 	linear_velocity = vel
 
@@ -84,6 +88,9 @@ func _physics_process(delta):
 
 	# Move the car in the direction it is facing
 	apply_central_impulse(direction * delta * speed)
+	
+	# Damp the turning
+	angular_velocity *= 0.97
 	
 	# Rotate the car in the direction the user is pressing only if the car
 	# is currently moving
