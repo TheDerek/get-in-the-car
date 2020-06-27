@@ -1,20 +1,140 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://misc_assets/spritesheet_characters.png" type="Texture" id=1]
+[ext_resource path="res://player/player_sheet.svg" type="Texture" id=1]
 [ext_resource path="res://player/player.gd" type="Script" id=2]
+[ext_resource path="res://player/StateMachine.gd" type="Script" id=3]
+[ext_resource path="res://player/Idle.gd" type="Script" id=4]
+[ext_resource path="res://player/Walk.gd" type="Script" id=5]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 17.3064
+[sub_resource type="Animation" id=1]
+resource_name = "idle"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("right_foot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -166.885, -10.7886 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("left_foot:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 4.40305, 13.4552 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, -1.22937 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "walk"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("left_foot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -16.4169, 13.4552 ), Vector2( 5.04697, 13.4552 ), Vector2( -16.417, 13.455 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("right_foot:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -166.885, -10.7886 ), Vector2( -189.851, -10.7886 ), Vector2( -166.885, -10.789 ) ]
+}
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 18.434
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
+speed = 250.0
 
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 11.5967, 0.271133 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "walk"
+anims/idle = SubResource( 1 )
+anims/walk = SubResource( 2 )
+
+[node name="shadow" type="Sprite" parent="."]
+position = Vector2( -1.05408, -0.790558 )
+scale = Vector2( 0.15, 0.15 )
 texture = ExtResource( 1 )
 region_enabled = true
-region_rect = Rect2( 0, 0, 57, 43 )
+region_rect = Rect2( -0.488632, 2.66426, 292.072, 290.78 )
+
+[node name="right_foot" type="Sprite" parent="."]
+position = Vector2( -166.885, -10.7886 )
+scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 1 )
+offset = Vector2( 1179.32, -7.13165 )
+region_enabled = true
+region_rect = Rect2( 543.804, 422.873, 108.562, 80.1688 )
+
+[node name="left_foot" type="Sprite" parent="."]
+position = Vector2( 4.40305, 13.4552 )
+scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 1 )
+offset = Vector2( 30.3776, 1.65227 )
+region_enabled = true
+region_rect = Rect2( 543.804, 422.873, 108.562, 80.1688 )
+
+[node name="body" type="Sprite" parent="."]
+rotation = -0.0214565
+scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 51.7499, 319.392, 162.793, 348.195 )
+
+[node name="head" type="Sprite" parent="."]
+scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 365.867, 40.2781, 214.133, 205.722 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.358459, 0.358475 )
-shape = SubResource( 1 )
+visible = false
+position = Vector2( -0.300033, -0.917443 )
+shape = SubResource( 3 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 3 )
+starting_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 4 )
+on_move = NodePath("../Walk")
+
+[node name="Walk" type="Node" parent="StateMachine"]
+script = ExtResource( 5 )
+on_stop = NodePath("../Idle")

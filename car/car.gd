@@ -3,7 +3,7 @@ extends RigidBody2D
 export var speed: float = 5000
 export var reverse_speed: float = 2000
 export var drive_zoom: float = 1.5
-export var locked: float = false
+export var locked: bool = false
 export var turning_speed: float = 7
 
 var default_zoom = null
@@ -72,7 +72,6 @@ func damp():
 func _physics_process(delta):
 	damp()
 	
-	
 	if !self.driver:
 		return
 	
@@ -94,7 +93,7 @@ func _physics_process(delta):
 	
 	# Rotate the car in the direction the user is pressing only if the car
 	# is currently moving
-	if linear_velocity.abs().length() > 0.01:
+	if linear_velocity.abs().length() > 30:
 		apply_torque_impulse(get_steering() * delta * 10000 * turning_speed)
 
 

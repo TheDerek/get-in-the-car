@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spritesheet_characters.png-dc1908a5306e9ad901d68ed7059fd916.stex"
+path="res://.import/player_sheet.svg-49434814abe15bd338604d88c2d651bc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://misc_assets/spritesheet_characters.png"
-dest_files=[ "res://.import/spritesheet_characters.png-dc1908a5306e9ad901d68ed7059fd916.stex" ]
+source_file="res://player/player_sheet.svg"
+dest_files=[ "res://.import/player_sheet.svg-49434814abe15bd338604d88c2d651bc.stex" ]
 
 [params]
 
@@ -20,15 +20,15 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
-flags/anisotropic=false
+flags/anisotropic=true
 flags/srgb=2
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=true
-svg/scale=1.0
+svg/scale=10.0
