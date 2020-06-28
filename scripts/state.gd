@@ -9,6 +9,10 @@ func _ready():
 
 func process_state(delta):
 	pass # Not implemented
+	
+
+func process_physics_state(delta):
+	pass # Not implemented
 
 func on_enter():
 	pass # Not implemented

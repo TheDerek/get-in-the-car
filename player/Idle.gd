@@ -9,9 +9,10 @@ func _ready():
 	pass # Replace with function body.
 
 func on_enter():
-	print("Entering the idle state!")
-
+	get_node("../../AnimationPlayer").play("idle")
 
 func process_state(delta):
+	InputUtil.look_at_mouse(owner)
+	
 	if abs(InputUtil.get_direction().length()) > 0:
 		self.change_state(on_move)

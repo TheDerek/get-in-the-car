@@ -17,3 +17,6 @@ func get_direction() -> Vector2:
 		direction.y += 1;
 	
 	return direction.normalized();
+
+func look_at_mouse(node: Node2D):
+	node.look_at(node.get_global_mouse_position())

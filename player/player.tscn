@@ -9,6 +9,7 @@
 [sub_resource type="Animation" id=1]
 resource_name = "idle"
 length = 1.5
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("right_foot:position")
 tracks/0/interp = 1
@@ -110,7 +111,6 @@ region_enabled = true
 region_rect = Rect2( 543.804, 422.873, 108.562, 80.1688 )
 
 [node name="body" type="Sprite" parent="."]
-rotation = -0.0214565
 scale = Vector2( 0.15, 0.15 )
 texture = ExtResource( 1 )
 region_enabled = true
