@@ -6,13 +6,14 @@ export(NodePath) var on_move
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+    pass # Replace with function body.
 
 func on_enter():
-	get_node("../../AnimationPlayer").play("idle")
+    get_node("../../AnimationPlayer").play("idle")
 
 func process_state(delta):
-	InputUtil.look_at_mouse(owner)
-	
-	if abs(InputUtil.get_direction().length()) > 0:
-		self.change_state(on_move)
+    InputUtil.look_at_mouse(owner)
+    InputUtil.interact_nearby(owner.get_node("InteractionDetection"))
+    
+    if abs(InputUtil.get_direction().length()) > 0:
+        self.change_state(on_move)
