@@ -9,6 +9,9 @@ func get_current_state():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if not starting_state:
+		push_error("Please specify a starting state for this state machine")
+	
 	print("Starting in state: " + starting_state)
 	self.current_state = starting_state
 	
