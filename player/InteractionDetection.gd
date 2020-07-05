@@ -18,7 +18,14 @@ func _on_body_exited(body):
 
 func interact():
     if (nearby.empty()):
+        print("Attemping to interact but nothing to interact with")
         return
     
-    var entity = nearby.keys()[0]
-    print("Attemping to interact with " + entity.name)
+    var entity: PhysicsBody2D = nearby.keys()[0]
+    
+    if not entity.has_method("interact"):
+        print("ERROR: Entity '" + entity.name + "' is not interactable")
+        return
+        
+    print("Interacting with " + entity.name)
+    return entity.interact()

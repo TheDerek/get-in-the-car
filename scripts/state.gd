@@ -23,3 +23,7 @@ func on_exit():
 
 func change_state(new_state_path: NodePath):
     emit_signal("change_state", get_parent().get_path_to(get_node(new_state_path)))
+
+
+func interact():
+    pass # Not implemented

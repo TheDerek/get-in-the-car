@@ -25,6 +25,5 @@ func interact_nearby(interaction_detection):
     if not Input.is_action_just_released("enter_vehicle"):
         return
     
-    print("Interacting with nearby objects")
-    interaction_detection.interact()
+    return interaction_detection.interact()
         

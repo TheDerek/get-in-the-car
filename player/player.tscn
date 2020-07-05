@@ -138,6 +138,7 @@ starting_state = NodePath("Idle")
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource( 4 )
 on_move = NodePath("../Walk")
+on_talk = NodePath("../Talk")
 
 [node name="Walk" type="Node" parent="StateMachine"]
 script = ExtResource( 5 )

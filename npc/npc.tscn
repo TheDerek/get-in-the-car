@@ -1,11 +1,12 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://misc_assets/spritesheet_characters.png" type="Texture" id=1]
 [ext_resource path="res://npc/npc.gd" type="Script" id=2]
 [ext_resource path="res://scripts/StateMachine.gd" type="Script" id=3]
 [ext_resource path="res://npc/Idle.gd" type="Script" id=4]
+[ext_resource path="res://npc/Talk.gd" type="Script" id=5]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=1]
 radius = 17.3064
 
 [node name="Npc" type="KinematicBody2D" groups=[
@@ -22,7 +23,7 @@ region_rect = Rect2( 458.531, 130.972, 32.5803, 44.7978 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( -0.164749, 0.164764 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 3 )
@@ -30,3 +31,7 @@ starting_state = NodePath("Idle")
 
 [node name="Idle" type="Node2D" parent="StateMachine"]
 script = ExtResource( 4 )
+on_talk = NodePath("../Talk")
+
+[node name="Talk" type="Node2D" parent="StateMachine"]
+script = ExtResource( 5 )

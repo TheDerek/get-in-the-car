@@ -22,7 +22,7 @@ func _ready():
 
 
 func change_state(new_state_path: NodePath):
-    print("Changing state: " + current_state + " -> " + new_state_path)
+    print("[" + owner.name + "] Changing state: " + current_state + " -> " + new_state_path)
     self.get_current_state().on_exit()
     self.current_state = new_state_path
     self.get_current_state().on_enter()
@@ -33,3 +33,6 @@ func _process(delta):
 
 func _physics_process(delta):
     get_current_state().process_physics_state(delta)
+
+func interact():
+    return get_current_state().interact()

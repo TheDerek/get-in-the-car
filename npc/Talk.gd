@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends "res://scripts/state.gd"
 
 
 # Declare member variables here. Examples:
@@ -13,7 +13,4 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
-#	pass
-
-func interact():
-    return $StateMachine.interact()
+#    pass
